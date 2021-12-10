@@ -8,19 +8,30 @@
 <body>
 	<div id='container'>
 		<div class='signup'>
+		<form action="loginAction.jsp" method="post" >
+		<input type ="email" name="email" placeholder="enter email">
+		<input type ="password" name="password" placeholder="enter password">
+		<input type ="submit" value="login">
+		
+		</form>
 
 			<h2>
-				<a href="">SignUp</a>
+				<a href="signup.jsp">SignUp</a>
 			</h2>
 			<h2>
-				<a href="">Forgot Password?</a>
+				<a href="forgotPassword.jsp">Forgot Password?</a>
 			</h2>
 		</div>
 		<div class='whysignLogin'>
+		<%
+		String msg=request.getParameter("msg");
+		if("notexist".equals(msg)){
+		%>
 			<h1>Incorrect Username or Password</h1>
-
+		<%} %>
+		<%if("invalid".equals(msg)) {%>
 			<h1>Some thing Went Wrong! Try Again !</h1>
-
+	<%} %>
 			<h2>Online Shopping</h2>
 			<p>The Online Shopping System is the application that allows the
 				users to shop online without going to the shops to buy them.</p>
