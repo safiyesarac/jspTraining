@@ -18,15 +18,15 @@ h3 {
 	<div style="color: white; text-align: center; font-size: 30px;">
 		All Products & Edit Products <i class='fab fa-elementor'></i>
 	</div>
-<%
+	<%
 String msg =request.getParameter("msg");
 if("done".equals(msg)){
 %>
 	<h3 class="alert">Product Successfully Updated!</h3>
-<%} %>
-<% if("wrong".equals(msg)){%>
+	<%} %>
+	<% if("wrong".equals(msg)){%>
 	<h3 class="alert">Some thing went wrong! Try again!</h3>
-<%} %>
+	<%} %>
 	<table>
 		<thead>
 			<tr>
@@ -39,7 +39,7 @@ if("done".equals(msg)){
 			</tr>
 		</thead>
 		<tbody>
-		<%
+			<%
 		try{
 			Connection con =ConnectionProvider.getCon();
 			Statement st =con.createStatement();
@@ -55,14 +55,16 @@ if("done".equals(msg)){
 				<td><%=rs.getString(3) %></td>
 				<td><i class="fa fa-inr"></i> <%=rs.getString(4) %></td>
 				<td><%=rs.getString(5) %></td>
-				<td><a href="editProduct.jsp?id="<%=rs.getString(1)%>">Edit <i class='fas fa-pen-fancy'></i></a></td>
+				<td><a href="editProduct.jsp?id=<%=rs.getString(1)%>" >Edit
+						<i class='fas fa-pen-fancy'></i>
+				</a></td>
 			</tr>
- <%
+			<%
 			}
 		}
 		catch(Exception e)
 		{
-			System.out.println(e);
+			
 		}
  %>
 		</tbody>

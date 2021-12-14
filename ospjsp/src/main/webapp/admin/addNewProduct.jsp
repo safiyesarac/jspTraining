@@ -8,16 +8,16 @@
 <title>Add New Product</title>
 </head>
 <body>
-<%
+	<%
 String msg=request.getParameter("msg");
 if("done".equals(msg)){
 %>
 	<h3 class="alert">Product Added Successfully!</h3>
-<%}
+	<%}
 if("wrong".equals(msg)){%>
 
 	<h3 class="alert">Some thing went wrong! Try Again!</h3>
-<% 	
+	<% 	
 }	
 %>
 	<%
@@ -35,42 +35,47 @@ if("wrong".equals(msg)){%>
 
 	}
 	%>
-<form action="addNewProductAction.jsp" method ="post">
-	<h3 style="color: yellow;">
-		Product ID:<%out.println(id);%>
-	
-	</h3>
-<input type ="hidden" name="id" value="<%out.println(id) ;%>">
+	<form action="addNewProductAction.jsp" method="post">
+		<h3 style="color: yellow;">
+			Product ID:<%out.println(id);%>
 
-	<div class="left-div">
-		<h3>Enter Name</h3>
-<input class ="input-style" type ="text" name="name" placeholder="enter name">
-		<hr>
-	</div>
+		</h3>
+		<input type="hidden" name="id" value="<%out.println(id) ;%>">
 
-	<div class="right-div">
-		<h3>Enter Category</h3>
-<input class ="input-style" type ="text" name="category" placeholder="enter category">
-		<hr>
-	</div>
+		<div class="left-div">
+			<h3>Enter Name</h3>
+			<input class="input-style" type="text" name="name"
+				placeholder="enter name">
+			<hr>
+		</div>
 
-	<div class="left-div">
-		<h3>Enter Price</h3>
-<input class ="input-style" type ="number" name="price" placeholder="enter price">
-		<hr>
-	</div>
+		<div class="right-div">
+			<h3>Enter Category</h3>
+			<input class="input-style" type="text" name="category"
+				placeholder="enter category">
+			<hr>
+		</div>
 
-	<div class="right-div">
-		<h3>Active</h3>
-		<select class ="input-style" name ="active">
-		<option value="Yes">Yes</option>
-		<option value="No">No</option>
-		</select>
+		<div class="left-div">
+			<h3>Enter Price</h3>
+			<input class="input-style" type="number" name="price"
+				placeholder="enter price">
+			<hr>
+		</div>
 
-		<hr>
-	</div>
-	<button class="button" >Save <i class='far fa-arrow-alt-circle-right'></i></button>
-</form>
+		<div class="right-div">
+			<h3>Active</h3>
+			<select class="input-style" name="active">
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+			</select>
+
+			<hr>
+		</div>
+		<button class="button">
+			Save <i class='far fa-arrow-alt-circle-right'></i>
+		</button>
+	</form>
 </body>
 <br>
 <br>

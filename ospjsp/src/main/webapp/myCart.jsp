@@ -1,4 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="header.jsp"%>
+<%@ include file="footer.jsp"%>
+<%@page import="project.ConnectionProvider"%>
+<%@page import="java.sql.*"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -14,23 +17,56 @@ h3 {
 	<div style="color: white; text-align: center; font-size: 30px;">
 		My Cart <i class='fas fa-cart-arrow-down'></i>
 	</div>
+	<%
+	String msg = request.getParameter("msg");
+	if("notPossible".equals(msg)) {
+	
+	%>
 
 	<h3 class="alert">There is only one Quantity! So click on remove!</h3>
-
+<%} %>
+<%
+	
+	if("inc".equals(msg)) {
+	
+	%>
 	<h3 class="alert">Quantity Increased Successfully!</h3>
-
+<%} %>
+<%
+	
+	if("dec".equals(msg)) {
+	
+	%>
 	<h3 class="alert">Quantity Decreased Successfully!</h3>
-
+	<%} %>
+<%
+	
+	if("removed".equals(msg)) {
+	
+	%>
 	<h3 class="alert">Product Successfully Removed!</h3>
-
+<%} %>
 	<table>
 		<thead>
+<%
+int total =0;
+int sno=0;
+try{
+	Connection con =ConnectionProvider.getCon();
+	Statement st=con.createStatement();
+	ResultSet rs1 =st.executeQuery("select sum(total) from cart where email='"+email+ "' and address is NULL");
+	while(rs1.next()){
+		total =rs1.getInt(1);
+	}
 
+%>
 			<tr>
-				<th scope="col" style="background-color: yellow;">Total: <i
+				<th scope="col" style="background-color: yellow;">Total: <%out.println(total); %> <i
 					class="fa fa-inr"></i>
 				</th>
-				<th scope="col"><a href="">Proceed to order</a></th>
+				<%if(total>0){ %>
+				<th scope="col"><a href="addressPaymentForOrder.jsp">Proceed to order</a></th>
+				<%} %>
 			</tr>
 		</thead>
 		<thead>
@@ -45,19 +81,31 @@ h3 {
 			</tr>
 		</thead>
 		<tbody>
-
+<%
+Statement st1=con.createStatement();
+ResultSet rs = st1.executeQuery("select * from product inner join cart on product.id =cart.product_id and cart.email='"+email+"' and cart.address is NULL");
+while(rs.next()){
+%>
 			<tr>
-
-				<td></td>
-				<td></td>
-				<td></td>
-				<td><i class="fa fa-inr"></i></td>
-				<td><a href=""><i class='fas fa-plus-circle'></i></a> <a
+				<%sno +=1 ;%>
+				<td><%out.println(sno); %></td>
+				<td><%=rs.getString(2) %></td>
+				<td><%=rs.getString(3) %></td>
+				<td><i class="fa fa-inr"></i><%=rs.getString(4)%></td>
+				<td><a href=""><i class='fas fa-plus-circle'></i></a> <%=rs.getString(8)%><a
 					href=""><i class='fas fa-minus-circle'></i></a></td>
-				<td><i class="fa fa-inr"></i></td>
+				<td><i class="fa fa-inr"></i><%=rs.getString(10) %></td>
 				<td><a href="">Remove <i class='fas fa-trash-alt'></i></a></td>
 			</tr>
+<%
+}
+}
+catch(Exception e){
+	System.out.println(e);
+}
 
+
+%>
 		</tbody>
 	</table>
 	<br>

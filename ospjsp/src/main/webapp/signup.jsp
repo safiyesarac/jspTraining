@@ -12,7 +12,8 @@
 				<input type="text" name="name" placeholder="Enter name " required>
 				<input type="email" name="email" placeholder="Enter email " required>
 				<input type="number" name="mobilenumber"
-					placeholder="enter mobile number" required> <select name="securityQuestion">
+					placeholder="enter mobile number" required> <select
+					name="securityQuestion">
 					<option value="what is your first car?">what is your first
 						car?</option>
 					<option value="what is the name of your first pet?">what
