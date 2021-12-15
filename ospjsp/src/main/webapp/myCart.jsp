@@ -19,54 +19,61 @@ h3 {
 	</div>
 	<%
 	String msg = request.getParameter("msg");
-	if("notPossible".equals(msg)) {
-	
+	if ("notPossible".equals(msg)) {
 	%>
 
 	<h3 class="alert">There is only one Quantity! So click on remove!</h3>
-<%} %>
-<%
-	
-	if("inc".equals(msg)) {
-	
+	<%
+	}
+	%>
+	<%
+	if ("inc".equals(msg)) {
 	%>
 	<h3 class="alert">Quantity Increased Successfully!</h3>
-<%} %>
-<%
-	
-	if("dec".equals(msg)) {
-	
+	<%
+	}
+	%>
+	<%
+	if ("dec".equals(msg)) {
 	%>
 	<h3 class="alert">Quantity Decreased Successfully!</h3>
-	<%} %>
-<%
-	
-	if("removed".equals(msg)) {
-	
+	<%
+	}
+	%>
+	<%
+	if ("removed".equals(msg)) {
 	%>
 	<h3 class="alert">Product Successfully Removed!</h3>
-<%} %>
+	<%
+	}
+	%>
 	<table>
 		<thead>
-<%
-int total =0;
-int sno=0;
-try{
-	Connection con =ConnectionProvider.getCon();
-	Statement st=con.createStatement();
-	ResultSet rs1 =st.executeQuery("select sum(total) from cart where email='"+email+ "' and address is NULL");
-	while(rs1.next()){
-		total =rs1.getInt(1);
-	}
-
-%>
+			<%
+			int total = 0;
+			int sno = 0;
+			try {
+				Connection con = ConnectionProvider.getCon();
+				Statement st = con.createStatement();
+				ResultSet rs1 = st.executeQuery("select sum(total) from cart where email='" + email + "' and address is NULL");
+				while (rs1.next()) {
+					total = rs1.getInt(1);
+				}
+			%>
 			<tr>
-				<th scope="col" style="background-color: yellow;">Total: <%out.println(total); %> <i
-					class="fa fa-inr"></i>
+				<th scope="col" style="background-color: yellow;">Total: <%
+				out.println(total);
+				%>
+					<i class="fa fa-inr"></i>
 				</th>
-				<%if(total>0){ %>
-				<th scope="col"><a href="addressPaymentForOrder.jsp">Proceed to order</a></th>
-				<%} %>
+				<%
+				if (total > 0) {
+				%>
+				<th scope="col"><a href="addressPaymentForOrder.jsp">Proceed
+						to order</a></th>
+				<%
+				}
+				%>
 			</tr>
 		</thead>
 		<thead>
@@ -81,31 +88,40 @@ try{
 			</tr>
 		</thead>
 		<tbody>
-<%
-Statement st1=con.createStatement();
-ResultSet rs = st1.executeQuery("select * from product inner join cart on product.id =cart.product_id and cart.email='"+email+"' and cart.address is NULL");
-while(rs.next()){
-%>
+			<%
+			Statement st1 = con.createStatement();
+			ResultSet rs = st1.executeQuery("select * from product inner join cart on product.id =cart.product_id and cart.email='"
+					+ email + "' and cart.address is NULL");
+			while (rs.next()) {
+			%>
 			<tr>
-				<%sno +=1 ;%>
-				<td><%out.println(sno); %></td>
-				<td><%=rs.getString(2) %></td>
-				<td><%=rs.getString(3) %></td>
+				<%
+				sno += 1;
+				%>
+				<td>
+					<%
+					out.println(sno);
+					%>
+				</td>
+				<td><%=rs.getString(2)%></td>
+				<td><%=rs.getString(3)%></td>
 				<td><i class="fa fa-inr"></i><%=rs.getString(4)%></td>
-				<td><a href=""><i class='fas fa-plus-circle'></i></a> <%=rs.getString(8)%><a
-					href=""><i class='fas fa-minus-circle'></i></a></td>
-				<td><i class="fa fa-inr"></i><%=rs.getString(10) %></td>
-				<td><a href="">Remove <i class='fas fa-trash-alt'></i></a></td>
+				<td><a
+					href="incDecQuantityAction.jsp?id=<%=rs.getString(1)%>&quantity=inc"><i
+						class='fas fa-plus-circle'></i></a> <%=rs.getString(8)%><a
+					href="incDecQuantityAction.jsp?id=<%=rs.getString(1)%>&quantity=dec"><i
+						class='fas fa-minus-circle'></i></a></td>
+				<td><i class="fa fa-inr"></i><%=rs.getString(10)%></td>
+				<td><a href="removeFromCart.jsp?id=<%=rs.getString(1)%>">Remove
+						<i class='fas fa-trash-alt'></i>
+				</a></td>
 			</tr>
-<%
-}
-}
-catch(Exception e){
-	System.out.println(e);
-}
-
-
-%>
+			<%
+			}
+			} catch (Exception e) {
+			System.out.println(e);
+			}
+			%>
 		</tbody>
 	</table>
 	<br>
